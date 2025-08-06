@@ -10,15 +10,61 @@ console.log("hello world!");
 // print the output to the log
 // Remember do all this inside a function
 
-var computerChoice = getComputerChoice().toLowerCase();
-var humanChoice = getHumanChoice().toLowerCase();
+// Score variables
+// keep track of computer's and human score
+var computerScore = 0;
+var humanScore = 0;
 
-console.log("Computer's choose: " + computerChoice);
-console.log("Human choose: " + humanChoice);
+playRound();
+
+// Logic to play a round
+// Create a function to play the round
+// The round should process the human and computer choice
+// Compare both and define who wins based on basic rock paper scissors rules
+// Add the scores to whoever won
+// output the outcome of the game and the current scores
+
+function playRound() {
+  var computerChoice = getComputerChoice().toLowerCase();
+  var humanChoice = getHumanChoice().toLowerCase();
+  
+  console.log("Computer's choose: " + computerChoice);
+  console.log("Human choose: " + humanChoice);
+  
+  // human is the master (who desides who wins)
+  // these are the human win conditions if none meet, the computer wins
+  // rock beats scissors
+  // scissors beats paper
+  // paper beats rock
+  if ( (humanChoice == "rock" && computerChoice == "scissors") || 
+    (humanChoice == "scissors" && computerChoice == "paper" ) ||
+    (humanChoice == "paper" && computerChoice == "rock")) {
+    // win logic
+    console.log("You won!");
+    humanScore++;
+    logScores();
+  } else if ( humanChoice === computerChoice) {
+    // Tie condition
+    console.log("It's a tie");
+    logScores();
+  } else {
+    // loose logic
+    console.log("You lost :(");
+    computerScore++;
+    logScores();
+  }
+  console.log("---------------------")
+  playRound();
+}
+
+function logScores() {
+    console.log(`Your score: ${humanScore}`);
+    console.log(`Computer score: ${computerScore}`);
+}
+
 
 function getComputerChoice() {
   var randomNumber = Math.ceil(Math.random() * 3);
-  console.log("Computer number: " + randomNumber);
 
   let output = "";
   switch (randomNumber) {
@@ -51,6 +97,7 @@ function getHumanChoice(message) {
   if (choice == "rock" || choice == "paper" || choice == "scissors") {
     return choice;
   } else {
+    // if the selection is wrong it will prompt you again with updated message
     return getHumanChoice("Bad input - Select between 'Rock' 'Paper' or 'Scissors'");
   }
 }
