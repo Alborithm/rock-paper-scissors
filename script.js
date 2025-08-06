@@ -14,6 +14,7 @@ console.log("hello world!");
 // keep track of computer's and human score
 var computerScore = 0;
 var humanScore = 0;
+var rounds = 0;
 
 playRound();
 
@@ -54,7 +55,25 @@ function playRound() {
     logScores();
   }
   console.log("---------------------")
-  playRound();
+  rounds++;
+  if (rounds === 5) {
+    endGame();
+  } else {
+    playRound();
+  }
+}
+
+function endGame() {
+  if ( humanScore > computerScore) {
+    console.log("You won the game!!!!");
+  } else if ( humanScore < computerScore) {
+    console.log("You lost the game X.X");
+  } else {
+    console.log("The game was tied -.-");
+  }
+
+  console.log("Final score");
+  logScores();
 }
 
 function logScores() {
