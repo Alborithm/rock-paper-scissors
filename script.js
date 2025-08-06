@@ -16,7 +16,7 @@ var computerScore = 0;
 var humanScore = 0;
 var rounds = 0;
 
-playRound();
+playRound(getHumanChoice(), getComputerChoice());
 
 // Logic to play a round
 // Create a function to play the round
@@ -25,12 +25,10 @@ playRound();
 // Add the scores to whoever won
 // output the outcome of the game and the current scores
 
-function playRound() {
-  var computerChoice = getComputerChoice().toLowerCase();
-  var humanChoice = getHumanChoice().toLowerCase();
+function playRound(humanChoice, computerChoice) {
   
-  console.log("Computer's choose: " + computerChoice);
   console.log("Human choose: " + humanChoice);
+  console.log("Computer's choose: " + computerChoice);
   
   // human is the master (who desides who wins)
   // these are the human win conditions if none meet, the computer wins
@@ -59,7 +57,7 @@ function playRound() {
   if (rounds === 5) {
     endGame();
   } else {
-    playRound();
+    playRound(getHumanChoice(), getComputerChoice());
   }
 }
 
@@ -100,7 +98,7 @@ function getComputerChoice() {
       throw new Error("Invalid random number created");
   }
 
-  return output;
+  return output.toLowerCase();
 }
 
 function getHumanChoice(message) {
@@ -114,7 +112,7 @@ function getHumanChoice(message) {
   choice = choice.toLowerCase();
 
   if (choice == "rock" || choice == "paper" || choice == "scissors") {
-    return choice;
+    return choice.toLowerCase();
   } else {
     // if the selection is wrong it will prompt you again with updated message
     return getHumanChoice("Bad input - Select between 'Rock' 'Paper' or 'Scissors'");
