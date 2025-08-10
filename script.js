@@ -1,25 +1,46 @@
 // Rock paper scissors game
 
+// Getting elements
+const rockBtn = document.querySelector("#rock-btn");
+const paperBtn = document.querySelector("#paper-btn");
+const scissorsBtn = document.querySelector("#scissors-btn");
+
+const scoreContainer = document.querySelector(".score-container");
+const humanScoreDisplay = document.querySelector("#human-score");
+const computerScoreDisplay = document.querySelector("#computer-score");
+
+// Win elements
+const finalResultDisplay = document.createElement("h3");
+const playAgainBtn = document.createElement("button");
+playAgainBtn.textContent = "Play Again!";
+playAgainBtn.addEventListener("click", () => {
+  disableSelections(false);
+  humanScore = 0;
+  computerScore = 0;
+  updateScores();
+  scoreContainer.removeChild(playAgainBtn);
+  scoreContainer.removeChild(finalResultDisplay);
+  outcomeContainer.removeChild(outcomeText);
+})
+
+// outcome Elements
+const outcomeContainer = document.querySelector(".outcome-container");
+const outcomeText = document.createElement("p");
+
+rockBtn.addEventListener("click",
+  () => playRound("rock", getComputerChoice()));
+paperBtn.addEventListener("click", 
+  () => playRound("paper", getComputerChoice()));
+scissorsBtn.addEventListener("click",
+  () => playRound("scissors", getComputerChoice()));
+
 // Score variables
 // keep track of computer's and human score
 var computerScore = 0;
 var humanScore = 0;
 var rounds = 0;
 
-// playRound(getHumanChoice(), getComputerChoice());
-
-// Logic to play a round
-// Create a function to play the round
-// The round should process the human and computer choice
-// Compare both and define who wins based on basic rock paper scissors rules
-// Add the scores to whoever won
-// output the outcome of the game and the current scores
-
 function playRound(humanChoice, computerChoice) {
-  
-  console.log("Human choose: " + humanChoice);
-  console.log("Computer's choose: " + computerChoice);
-  
   // human is the master (who desides who wins)
   // these are the human win conditions if none meet, the computer wins
   // rock beats scissors
@@ -29,49 +50,48 @@ function playRound(humanChoice, computerChoice) {
     (humanChoice == "scissors" && computerChoice == "paper" ) ||
     (humanChoice == "paper" && computerChoice == "rock")) {
     // win logic
-    console.log("You won!");
     humanScore++;
-    logScores();
   } else if ( humanChoice === computerChoice) {
     // Tie condition
-    console.log("It's a tie");
-    logScores();
   } else {
     // loose logic
-    console.log("You lost :(");
     computerScore++;
-    logScores();
   }
-  console.log("---------------------")
   rounds++;
 
-  // temporarely removed logit to play only 5 rounds
-  // if (rounds === 5) {
-  //   endGame();
-  // } else {
-  //   playRound(getHumanChoice(), getComputerChoice());
-  // }
+  // if one gets to score 5, that's the winner and game ends
+  updateScores();
 
-  // Added infinite play
-  playRound(getHumanChoice(), getComputerChoice());
+  // outcome print
+  outcomeText.textContent = `Player ${humanChoice} vs. Computer ${computerChoice}`;
+  console.log(outcomeContainer)
+  if (!outcomeContainer.hasChildNodes()) {
+    outcomeContainer.appendChild(outcomeText);
+  }
+  if (humanScore === 5 || computerScore === 5) {
+    endGame();
+  }
 }
 
 function endGame() {
+  let outcome = "";
   if ( humanScore > computerScore) {
-    console.log("You won the game!!!!");
-  } else if ( humanScore < computerScore) {
-    console.log("You lost the game X.X");
+    outcome = "You won the game!!!!";
   } else {
-    console.log("The game was tied -.-");
+    outcome = "You lost the game X.X";
   }
+  
+  finalResultDisplay.textContent = outcome;
+  scoreContainer.appendChild(finalResultDisplay);
+  scoreContainer.appendChild(playAgainBtn);
 
-  console.log("Final score");
-  logScores();
+  disableSelections(true);
 }
 
-function logScores() {
-    console.log(`Your score: ${humanScore}`);
-    console.log(`Computer score: ${computerScore}`);
+function disableSelections(disabled) {
+  rockBtn.disabled = disabled;
+  paperBtn.disabled = disabled;
+  scissorsBtn.disabled = disabled;
 }
 
 
@@ -96,20 +116,8 @@ function getComputerChoice() {
   return output.toLowerCase();
 }
 
-function getHumanChoice(message) {
-  var choice = "";
-  // if (message) {
-  //   choice = prompt(message, "Rock")
-  // } else {
-  //   choice = prompt("Select between 'Rock' 'Paper' or 'Scissors'", "Rock");
-  // }
-
-  choice = choice.toLowerCase();
-
-  if (choice == "rock" || choice == "paper" || choice == "scissors") {
-    return choice.toLowerCase();
-  } else {
-    // if the selection is wrong it will prompt you again with updated message
-    return getHumanChoice("Bad input - Select between 'Rock' 'Paper' or 'Scissors'");
-  }
+// Function to display stats of the current game
+function updateScores() {
+  humanScoreDisplay.textContent = `Human Score: ${humanScore}`;
+  computerScoreDisplay.textContent = `Computer Score: ${computerScore}`;
 }
