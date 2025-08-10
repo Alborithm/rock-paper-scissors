@@ -1,14 +1,4 @@
-console.log("hello world!");
-
 // Rock paper scissors game
-
-// Get the computer choice:
-// The computer choice is a random selection between the 3 options
-// get a random number between 1 and 3
-// translate that to a string of rock paper or scissors
-// We could us an enum for that or just a switch or if else statement
-// print the output to the log
-// Remember do all this inside a function
 
 // Score variables
 // keep track of computer's and human score
@@ -16,22 +6,7 @@ var computerScore = 0;
 var humanScore = 0;
 var rounds = 0;
 
-
-// Testing the exercise of the arrays
-
-var array = [1,2,3,4,5];
-
-var result = array.filter((item) => (item % 2 === 0))
-    .map((item) => item * 3)
-    .reduce((total, currentItem) => total + currentItem, 0);
-
-console.log(result);
-
-function sumOfTripledEvens(array){
-
-}
-
-playRound(getHumanChoice(), getComputerChoice());
+// playRound(getHumanChoice(), getComputerChoice());
 
 // Logic to play a round
 // Create a function to play the round
@@ -69,11 +44,16 @@ function playRound(humanChoice, computerChoice) {
   }
   console.log("---------------------")
   rounds++;
-  if (rounds === 5) {
-    endGame();
-  } else {
-    playRound(getHumanChoice(), getComputerChoice());
-  }
+
+  // temporarely removed logit to play only 5 rounds
+  // if (rounds === 5) {
+  //   endGame();
+  // } else {
+  //   playRound(getHumanChoice(), getComputerChoice());
+  // }
+
+  // Added infinite play
+  playRound(getHumanChoice(), getComputerChoice());
 }
 
 function endGame() {
@@ -118,11 +98,11 @@ function getComputerChoice() {
 
 function getHumanChoice(message) {
   var choice = "";
-  if (message) {
-    choice = prompt(message, "Rock")
-  } else {
-    choice = prompt("Select between 'Rock' 'Paper' or 'Scissors'", "Rock");
-  }
+  // if (message) {
+  //   choice = prompt(message, "Rock")
+  // } else {
+  //   choice = prompt("Select between 'Rock' 'Paper' or 'Scissors'", "Rock");
+  // }
 
   choice = choice.toLowerCase();
 
