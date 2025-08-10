@@ -16,6 +16,21 @@ var computerScore = 0;
 var humanScore = 0;
 var rounds = 0;
 
+
+// Testing the exercise of the arrays
+
+var array = [1,2,3,4,5];
+
+var result = array.filter((item) => (item % 2 === 0))
+    .map((item) => item * 3)
+    .reduce((total, currentItem) => total + currentItem, 0);
+
+console.log(result);
+
+function sumOfTripledEvens(array){
+
+}
+
 playRound(getHumanChoice(), getComputerChoice());
 
 // Logic to play a round
