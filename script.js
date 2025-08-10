@@ -64,7 +64,6 @@ function playRound(humanChoice, computerChoice) {
 
   // outcome print
   outcomeText.textContent = `Player ${humanChoice} vs. Computer ${computerChoice}`;
-  console.log(outcomeContainer)
   if (!outcomeContainer.hasChildNodes()) {
     outcomeContainer.appendChild(outcomeText);
   }
